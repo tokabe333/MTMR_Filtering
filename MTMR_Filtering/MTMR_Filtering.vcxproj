@@ -139,6 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bebebe.cpp" />
+    <ClCompile Include="MTMR.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Saeki.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
