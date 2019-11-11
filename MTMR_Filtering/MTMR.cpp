@@ -8,8 +8,7 @@
 /*****注意　上記のようにグローバル変数を多用するのはやめましょう（これは楽をするためです）*****/
 
 //入力画像読み込み用関数
-int openImage()
-{
+int openImage() {
 	FILE *fp;
 	char buff[N]; //ヘッダ読み捨て用
 	char *tp;
@@ -17,8 +16,8 @@ int openImage()
 
 	/*****ファイルオープン*****/
 	sprintf(temp, "%s.ppm", name);
-	if ((fp = fopen(temp, "rb")) == NULL)
-	{
+	printf("input : %s\r\n", temp);
+	if ((fp = fopen(temp, "rb")) == NULL) {
 		printf("画像が開けません\n");
 		return -1;
 	}
@@ -53,15 +52,12 @@ int openImage()
 }
 
 //グレースケール化
-void makeGrayImage()
-{
+void makeGrayImage() {
 	/*****入力画像用配列確保*****/
 	grayImage = (unsigned char*)malloc(sizeof(unsigned char) * height * width);
 
-	for (int i = 0; i < height; i++)
-	{
-		for (int j = 0; j < width; j++)
-		{
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
 			double intensity = 0.298839*(unsigned char)ppmImage[i * width * CHANNEL + j * CHANNEL] + 0.586811*(unsigned char)ppmImage[i * width * CHANNEL + j * CHANNEL + 1] + 0.114350*(unsigned char)ppmImage[i * width * CHANNEL + j * CHANNEL];
 			grayImage[i * width + j] = (unsigned char)intensity;
 		}
@@ -69,15 +65,19 @@ void makeGrayImage()
 }
 
 //画像保存用関数
-int output()
-{
+int outputtt() {
 	FILE *fp;
 	char temp[256];
 
+	//ガバ回避コード
+	for (int i = 0; i < 256; ++i) {
+		temp[i] = '\0';
+	} //End_For
+
 	/*****ファイルオープン*****/
 	sprintf(temp, "%s.pgm", name);
-	if ((fp = fopen(temp, "wb")) == NULL)
-	{
+	printf("output path : %s\r\n", temp);
+	if ((fp = fopen(temp, "wb")) == NULL) {
 		printf("画像が保存できません\n");
 		return -1;
 	}
@@ -94,8 +94,7 @@ int output()
 }
 
 //よくわからんやつ
-void free()
-{
+void free() {
 	free(ppmImage);
 	free(grayImage);
 	free(outputImage);

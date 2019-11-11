@@ -20,9 +20,9 @@ int** Filter;					//フィルタリングに使うFilter(初期化はInitialize)
 /// </summary>
 void Initialize() {
 	Filter = new int*[FilterSize];
-	Filter[0] = new int[FilterSize] {0, 1, 0};
-	Filter[1] = new int[FilterSize] {1, -4, 1};
-	Filter[2] = new int[FilterSize] {0, 1, 0};
+	Filter[0] = new int[FilterSize] {0, 0, 0};
+	Filter[1] = new int[FilterSize] {1, -1, 0};
+	Filter[2] = new int[FilterSize] {0, 0, 0};
 } //End_Function
 
 /// <summary>
@@ -33,23 +33,32 @@ int MultiplyAdd(int x, int y, unsigned char* img, int** filter) {
 	//フィルタリンググググ
 	for (int i = -(FilterSize - 1) / 2; i < (FilterSize - 1) / 2; ++i) {
 		for (int j = -(FilterSize - 1) / 2; j < (FilterSize - 1) / 2; ++j) {
-			sum += img[(y + i) * width + (x + j)] * filter[i][j];
+			sum += img[(y + i) * width + (x + j)] * filter[i + (FilterSize - 1) / 2][j + (FilterSize - 1) / 2];
 		} //End_For
 	} //End_For
 	return sum;
 } //End_Function
 
 
+/// <summary>
+/// Initializeを必ず呼ぼうね！！！！！(1敗)
+/// </summary>
 int main(int argc, char *argv[]) {
+	//Filterの初期化を忘れずしようね！！！！！！！！
+	Initialize();
+
 	/*****必要な変数があれば適宜宣言*****/
-	int imageWidthAfterFiltering = width - (FilterSize - 1) / 2;	//フィルタリング後の画像サイズ(x方向)
-	int imageHeightAfterFiltering = height - (FilterSize - 1) / 2;	//フィルタリング後の画像サイズ(y方向)
+
 
 	/*****入力画像オープン*****/
 	printf("入力画像ファイル名を入力（拡張子はなくてよい）：");
 	scanf("%s", name);
 	if (openImage() != 0)
 		return 1;
+
+	//画像を開く前に宣言するとうんちっちになる
+	const int imageWidthAfterFiltering = width - (FilterSize - 1) / 2;	//フィルタリング後の画像サイズ(x方向)
+	const int imageHeightAfterFiltering = height - (FilterSize - 1) / 2;	//フィルタリング後の画像サイズ(y方向)
 
 	/*****グレースケール化*****/
 	makeGrayImage();
@@ -73,7 +82,7 @@ int main(int argc, char *argv[]) {
 	/*****画像出力*****/
 	printf("出力画像ファイル名を入力（拡張子はなくてよい）：");
 	scanf("%s", name);
-	if (output() != 0)
+	if (outputtt() != 0)
 		return 1;
 
 

@@ -1,8 +1,10 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include <iostream> //‚¤‚ñ‚¿
 
 #define N 256
 #define CHANNEL 3
@@ -25,7 +27,7 @@ int openImage();
 void makeGrayImage();
 
 //‰æ‘œ•Û‘¶—pŠÖ”
-int output();
+int outputtt();
 
 //‚æ‚­‚í‚©‚ç‚ñ‚â‚Â
 void free();
