@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bebebe.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="MTMR.cpp" />
   </ItemGroup>
   <ItemGroup>

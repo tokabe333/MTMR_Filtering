@@ -28,12 +28,12 @@ void Initialize() {
 /// <summary>
 /// 画像の座標を指定して積和演算したい
 /// </summary>
-int MultiplyAdd(int x, int y, unsigned char* img, int** filter) {
+int MultiplyAdd(int x, int y, unsigned char* grayImg, int** filter) {
 	int sum = 0;
 	//フィルタリンググググ
 	for (int i = -(FilterSize - 1) / 2; i < (FilterSize - 1) / 2; ++i) {
 		for (int j = -(FilterSize - 1) / 2; j < (FilterSize - 1) / 2; ++j) {
-			sum += img[(y + i) * width + (x + j)] * filter[i + (FilterSize - 1) / 2][j + (FilterSize - 1) / 2];
+			sum += grayImg[(y + i) * width + (x + j)] * filter[i + (FilterSize - 1) / 2][j + (FilterSize - 1) / 2];
 		} //End_For
 	} //End_For
 	return sum;
@@ -41,52 +41,31 @@ int MultiplyAdd(int x, int y, unsigned char* img, int** filter) {
 
 
 /// <summary>
-/// Initializeを必ず呼ぼうね！！！！！(1敗)
+/// outputMTMRがよくわからんので自作
 /// </summary>
-int main(int argc, char *argv[]) {
-	//Filterの初期化を忘れずしようね！！！！！！！！
-	Initialize();
+int outputBebebe() {
+	//出力パス取得
+	std::string outPath;
+	std::cin >> outPath;
+	outPath += ".pgm";
+	std::cout << "出力パス : " << outPath << std::endl;
 
-	/*****必要な変数があれば適宜宣言*****/
+	//出力ストリーム
+	std::ofstream outStream(outPath, std::ios::out);
 
+	//ヘッダ部出力処理
+	outStream << "P5\n" + std::to_string(width) + " " + std::to_string(height) + "\n255\n";
 
-	/*****入力画像オープン*****/
-	printf("入力画像ファイル名を入力（拡張子はなくてよい）：");
-	scanf("%s", name);
-	if (openImage() != 0)
-		return 1;
-
-	//画像を開く前に宣言するとうんちっちになる
-	const int imageWidthAfterFiltering = width - (FilterSize - 1) / 2;	//フィルタリング後の画像サイズ(x方向)
-	const int imageHeightAfterFiltering = height - (FilterSize - 1) / 2;	//フィルタリング後の画像サイズ(y方向)
-
-	/*****グレースケール化*****/
-	makeGrayImage();
-
-
-	/*****エッジ検出結果出力画像用配列確保*****/
-	outputImage = (unsigned char*)malloc(sizeof(unsigned char) * imageWidthAfterFiltering * imageHeightAfterFiltering); //幅*高さのサイズで配列確保　単純に入力画像そのままの幅、高さにはならないことに注意
-
-	/*****ここからフィルタリング処理を書いていく******/
-	/******grayImageに対してフィルタによる畳み込み演算を行い、結果をoutputImageへ*****/
-	/*****outputImage[y * width + x]で位置(x,y)の画素にアクセスできる（grayImageも同様にアクセス）*****/
-	for (int i = (FilterSize - 1) / 2; i < imageHeightAfterFiltering; ++i) {
-		for (int j = (FilterSize - 1) / 2; j < imageWidthAfterFiltering; ++j) {
-			outputImage[i * width + j] = MultiplyAdd(j, i, grayImage, Filter);
+	//保存画像画素値出力
+	for (int i = 0; i < height; ++i) {
+		for (int j = 0; j < width; ++j) {
+			outStream << outputImage[i * width + j] << " ";
 		} //End_For
+		outStream << "\n";
 	} //End_For
 
-
-
-
-	/*****画像出力*****/
-	printf("出力画像ファイル名を入力（拡張子はなくてよい）：");
-	scanf("%s", name);
-	if (outputtt() != 0)
-		return 1;
-
-
-	free();
+	//メモリ解放(C#のUsingみたいなのほしい)C++
+	outStream.close();
 
 	return 0;
 } //End_Function

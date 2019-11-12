@@ -65,7 +65,10 @@ void makeGrayImage() {
 }
 
 //‰æ‘œ•Û‘¶—pŠÖ”
-int outputtt() {
+//scanf("%s", name);
+//if (outputMTMR() != 0)
+//return 1;
+int outputMTMR() {
 	FILE *fp;
 	char temp[256];
 

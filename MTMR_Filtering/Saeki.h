@@ -3,8 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <string.h>
+//#include <string.h>
 #include <iostream> //‚¤‚ñ‚¿
+#include <string>	//‚¤‚ñ‚¿‚»‚Ì2
+#include <fstream>	//‚¤‚ñ‚¿‚»‚Ì3
 
 #define N 256
 #define CHANNEL 3
@@ -27,7 +29,10 @@ int openImage();
 void makeGrayImage();
 
 //‰æ‘œ•Û‘¶—pŠÖ”
-int outputtt();
+int outputMTMR();
+
+//outputMTMR‚ª‚æ‚­‚í‚©‚ç‚ñ‚Ì‚Å©ì
+int outputBebebe();
 
 //‚æ‚­‚í‚©‚ç‚ñ‚â‚Â
 void free();
@@ -36,4 +41,4 @@ void free();
 void Initialize();
 
 //‰æ‘œ‚ÌÀ•W‚ğw’è‚µ‚ÄÏ˜a‰‰Z‚µ‚½‚¢
-int MultiplyAdd(int x, int y, unsigned char img, int** filter);
+int MultiplyAdd(int x, int y, unsigned char* img, int** filter);
